@@ -1,1 +1,1 @@
-<script>alert('FruityWiFi')</script>
+<script>alert('BlackBlulb')</script>
