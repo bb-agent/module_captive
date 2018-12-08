@@ -9,20 +9,20 @@ $data = json_decode($input, true);
 // ----------------------
 // JSON
 // ----------------------
-include "/usr/share/fruitywifi/www/modules/captive/_info_.php";
-include "/usr/share/fruitywifi/www/functions.php";
+include "/usr/share/blackbulb/www/modules/captive/_info_.php";
+include "/usr/share/blackbulb/www/functions.php";
 
 //$json_file = "/tmp/captiveJSON.txt";
-//$json_file = "/usr/share/fruitywifi/www/modules/captive/includes/captive_db.json";
+//$json_file = "/usr/share/blackbulb/www/modules/captive/includes/captive_db.json";
 
 function create_db_file() {
 	global $json_file;
 	
 	$exec = "touch $json_file";
-	exec_fruitywifi($exec);
+	exec_blackbulb($exec);
 	
 	$exec = "chmod 666 $json_file";
-	exec_fruitywifi($exec);
+	exec_blackbulb($exec);
 }
 
 function debugJSON($dataJSON) {
@@ -42,7 +42,7 @@ function remove_json_entry($db_id) {
 	global $json_file;
 	
 	$exec = "sed -i '/$db_id/d' $json_file";
-	exec_fruitywifi($exec);
+	exec_blackbulb($exec);
 }
 
 function check_json_entry_exists($userAgent, $mac) {
@@ -90,7 +90,7 @@ echo json_encode($data["ip"]);
 // ----------------------
 // SQL LITE
 // ----------------------
-$db_path = "/usr/share/fruitywifi/www/modules/captive/includes/db/db.sqlite3";
+$db_path = "/usr/share/blackbulb/www/modules/captive/includes/db/db.sqlite3";
 //$db_path = "db/db.sqlite3";
 
 // CREATE DATABASE

@@ -1,14 +1,14 @@
 <?
 $mod_name="captive";
 $mod_version="1.9";
-$mod_path="/usr/share/fruitywifi/www/modules/$mod_name";
+$mod_path="/usr/share/blackbulb/www/modules/$mod_name";
 $mod_logs="$log_path/captive.log"; 
 $mod_logs_history="$mod_path/includes/logs/";
 $mod_panel="show";
-//$mod_isup="/usr/share/fruitywifi/bin/danger \"/sbin/iptables -t mangle -L|grep -iEe 'internet.+anywhere'\"";
+//$mod_isup="/usr/share/blackbulb/bin/danger \"/sbin/iptables -t mangle -L|grep -iEe 'internet.+anywhere'\"";
 //$mod_isup="sudo \"/sbin/iptables -t mangle -L|grep -iEe 'internet.+anywhere'\"";
 //$mod_isup="sudo /sbin/iptables -t mangle -L|grep -iEe 'internet.+anywhere'";
-//$mod_isup="grep -iEe '^iptables -t nat -A PREROUTING' /usr/share/fruitywifi/conf/dnsmasq-dhcp-script.sh";
+//$mod_isup="grep -iEe '^iptables -t nat -A PREROUTING' /usr/share/blackbulb/conf/dnsmasq-dhcp-script.sh";
 $mod_alias="Captive";
 
 # OPTIONS
@@ -32,7 +32,7 @@ $mod_captive_redirect="1";
 $mod_captive_redirect_value="www.example.com";
 
 # OTHER
-$mod_dnsmasq_dhcp_script_path="/usr/share/fruitywifi/www/modules/ap/includes/dnsmasq-dhcp-script.sh";
+$mod_dnsmasq_dhcp_script_path="/usr/share/blackbulb/www/modules/ap/includes/dnsmasq-dhcp-script.sh";
 
 # EXEC
 $bin_sudo = "/usr/bin/sudo";

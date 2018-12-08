@@ -70,14 +70,14 @@ $service = $_POST["service"];
 // DELETE LOG
 if ($logfile != "" and $action == "delete") {
     $exec = "rm ".$mod_logs_history.$logfile.".log";
-    exec_fruitywifi($exec);
+    exec_blackbulb($exec);
 }
 
 // SET MODE
 if ($_POST["change_mode"] == "1") {
     $ss_mode = $service;
     $exec = "/bin/sed -i 's/ss_mode.*/ss_mode = \\\"".$ss_mode."\\\";/g' includes/options_config.php";
-    exec_fruitywifi($exec);
+    exec_blackbulb($exec);
 }
 
 //include "includes/options_config.php";
@@ -111,7 +111,7 @@ if ($_POST["change_mode"] == "1") {
     
     if ($mod_captive_block == "ALL") {
         $exec = "$bin_iptables -t mangle -L|grep -iEe 'internet.+anywhere'";
-        $ismoduleup = exec_fruitywifi($exec);
+        $ismoduleup = exec_blackbulb($exec);
         $ismoduleup = $ismoduleup[0];
         //$ismoduleup = exec("ps auxww | grep ngrep | grep -v -e 'grep ngrep'");
     } else if ($mod_captive_block == "open") {
@@ -182,7 +182,7 @@ Loading, please wait...
             
             <?
             // COPIED FROM AP MODULE ws.php (I need to pull this together...)    
-            $data = open_file("/usr/share/fruitywifi/logs/dhcp.leases");
+            $data = open_file("/usr/share/blackbulb/logs/dhcp.leases");
             $out = explode("\n", $data);
             
             $leases = [];
@@ -196,7 +196,7 @@ Loading, please wait...
             unset($data);
             
             $exec = "iw dev $io_in_iface station dump | sed -e 's/^\\t/|/g' | tr '\\n' ' ' | sed -e 's/Sta/\\nSta/g' | tr '\\t' ' '";
-            $out = exec_fruitywifi($exec);
+            $out = exec_blackbulb($exec);
             
             $output = [];
             
@@ -240,7 +240,7 @@ Loading, please wait...
             
             if ($mod_captive_block == "open") {
                 $exec = "$bin_iptables -t nat -L | grep -iEe 'DNAT.+MAC.+http' | awk '{print \\\$7}' | uniq";
-                $output_captive = exec_fruitywifi($exec);
+                $output_captive = exec_blackbulb($exec);
                 
                 for ($i=0; $i < sizeof($output); $i++) {
                     $mac = $output[$i]["station"];
@@ -264,14 +264,14 @@ Loading, please wait...
             } else {
                 
                 $exec = "$bin_iptables -t nat -L | grep -iEe 'MARK.+MAC' | awk '{print \\\$7}'";
-                $output_captive = exec_fruitywifi($exec);
+                $output_captive = exec_blackbulb($exec);
                 
                 /*
                 for ($i=0; $i < sizeof($output_captive); $i++) {
                     $mac = $output_captive[$i];
                     echo "[x] .$mac. <br>";
                     //$exec = "$bin_iptables -t nat -D PREROUTING -p tcp -m mac --mac-source $mac -j MARK --set-mark 99";
-                    //exec_fruitywifi($exec);
+                    //exec_blackbulb($exec);
                 }
                 */
                 

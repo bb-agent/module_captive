@@ -5,9 +5,9 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 	
-include "/usr/share/fruitywifi/www/config/config.php";
-include "/usr/share/fruitywifi/www/modules/captive/_info_.php";
-include "/usr/share/fruitywifi/www/functions.php";
+include "/usr/share/blackbulb/www/config/config.php";
+include "/usr/share/blackbulb/www/modules/captive/_info_.php";
+include "/usr/share/blackbulb/www/functions.php";
 include "../_portal_functions.php";
 
 if (isset($_GET["r_url"])) {

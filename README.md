@@ -1,7 +1,7 @@
 module_captive
 ==============
 
-FruityWifi captive portal module
+BlackBulb captive portal module
 
 
 v1.9
@@ -22,7 +22,7 @@ v1.8
 
 v1.6
 ---------------------------------
-- FruityWifi v2.4 is required
+- BlackBulb v2.4 is required
 - New options tab has been added
 - Captive portal template can be changed
 - Recon option has been added (captures browser details and plugins)
@@ -32,7 +32,7 @@ v1.6
 
 v1.0
 ---------------------------------
-- FruityWifi v1.5 is required
+- BlackBulb v1.5 is required
 - CONNTRACK needs to be installed manually (apt/tar)
 
 

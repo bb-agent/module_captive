@@ -6,7 +6,7 @@
 	}
 </style>
 <?
-include "/usr/share/fruitywifi/www/functions.php";
+include "/usr/share/blackbulb/www/functions.php";
 
 function getIP() {
 	if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -31,7 +31,7 @@ function getMAC($ip) {
 	$exec = "$arp -an " . $ip;
 
 	//$mac = shell_exec("sudo $arp -an " . $ip);
-	//$mac = exec_fruitywifi($exec);
+	//$mac = exec_blackbulb($exec);
 	exec($exec, $mac);
 		
 	preg_match('/..:..:..:..:..:../',$mac[0] , $matches);
@@ -41,7 +41,7 @@ function getMAC($ip) {
 }
 
 function getMacAddress($p_ip) {
-    $path = "/usr/share/fruitywifi/logs/dhcp.leases";
+    $path = "/usr/share/blackbulb/logs/dhcp.leases";
     
     $exec = "grep '$p_ip' $path | awk {'print $2'}";
     exec($exec, $output);
@@ -51,7 +51,7 @@ function getMacAddress($p_ip) {
 
 
 function getStationHostname($p_ip) {
-    $path = "/usr/share/fruitywifi/logs/dhcp.leases";
+    $path = "/usr/share/blackbulb/logs/dhcp.leases";
     
     $exec = "grep '$p_ip' $path | awk {'print $4'}";
     exec($exec, $output);

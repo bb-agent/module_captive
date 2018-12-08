@@ -56,7 +56,7 @@ function getMAC($ip) {
     
     // execute the arp command to get their mac address
     $exec = "$bin_arp -an $ip";
-    $mac = exec_fruitywifi($exec);
+    $mac = exec_blackbulb($exec);
     
     preg_match('/..:..:..:..:..:../',$mac[0] , $matches);
     $mac = @$matches[0];
@@ -65,7 +65,7 @@ function getMAC($ip) {
 }
 
 function injectPayload() {
-    $filename = "/usr/share/fruitywifi/www/modules/captive/includes/inject.txt";
+    $filename = "/usr/share/blackbulb/www/modules/captive/includes/inject.txt";
     $inject = open_file($filename);
     echo $inject;
 }
@@ -77,7 +77,7 @@ function injectRecon() {
 function setRedirect() {
     global $io_in_ip;
     $debug = false;
-    $redirect_file = "/usr/share/fruitywifi/www/modules/captive/includes/redirect.txt";
+    $redirect_file = "/usr/share/blackbulb/www/modules/captive/includes/redirect.txt";
     $domain = trim($_SERVER["HTTP_HOST"]);
     $ip = trim($_SERVER['REMOTE_ADDR']);
     
@@ -91,10 +91,10 @@ function setRedirect() {
         
         if ($out[0] != "") {
             $exec = "sed -i 's/$ip=.*/$ip=$domain/g' $redirect_file";
-            exec_fruitywifi($exec);
+            exec_blackbulb($exec);
         } else {
             $exec = "echo '$ip=$domain' >> $redirect_file";
-            exec_fruitywifi($exec);
+            exec_blackbulb($exec);
         }
         
         if ($debug) {
@@ -107,7 +107,7 @@ function setRedirect() {
 
 function getRedirect() {
     global $io_in_ip;
-    $redirect_file = "/usr/share/fruitywifi/www/modules/captive/includes/redirect.txt";
+    $redirect_file = "/usr/share/blackbulb/www/modules/captive/includes/redirect.txt";
     $ip = trim($_SERVER['REMOTE_ADDR']);
     
     exec("grep '$ip=' $redirect_file", $out);
@@ -126,7 +126,7 @@ function storeEvent($mac, $ip, $current_script, $r_url) {
 	$debug_file = $mod_logs;
 	$datetime = date("Y-m-d H:i:s");
 	$exec = " echo '$datetime|$mac|$ip|$current_script|$r_url' >> $mod_logs";
-	exec_fruitywifi($exec);
+	exec_blackbulb($exec);
 }
 
 ?>

@@ -23,9 +23,9 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 	
-include "/usr/share/fruitywifi/www/config/config.php";
-include "/usr/share/fruitywifi/www/modules/captive/_info_.php";
-include "/usr/share/fruitywifi/www/functions.php";
+include "/usr/share/blackbulb/www/config/config.php";
+include "/usr/share/blackbulb/www/modules/captive/_info_.php";
+include "/usr/share/blackbulb/www/functions.php";
 include "../_portal_functions.php";
 
 // ------ CHECK LOGIN ------ 
@@ -89,29 +89,29 @@ if( $ip != "" and $mac != "" ) {
     
     if ($mod_captive_block == "ALL") { // EXPERIMENTAL [OLD METHOD]
         $exec = "$bin_iptables -I internet 1 -t mangle -m mac --mac-source $mac -j RETURN";
-        exec_fruitywifi($exec);
+        exec_blackbulb($exec);
      
         $exec = "includes/rmtrack " . $ip;
-        exec_fruitywifi($exec);
+        exec_blackbulb($exec);
         sleep(1); // allowing rmtrack to be executed
     } else if ($mod_captive_block == "80" or $mod_captive_block == "open") { // EXPERIMENTAL
 		for ($i=0; $i < 5; $i++) {
 			$exec = "$bin_iptables -t nat -D PREROUTING -p tcp -m mac --mac-source $mac --dport 80 -j DNAT --to-destination $io_in_ip:80";
 			//$exec = "$bin_iptables -t nat -D PREROUTING -p tcp -m mac --mac-source $mac --dport 80 -j DNAT --to-destination $io_in_ip";
-			exec_fruitywifi($exec);
+			exec_blackbulb($exec);
 			$exec = "$bin_iptables -t nat -D PREROUTING -p tcp -m mac --mac-source $mac --dport 443 -j DNAT --to-destination $io_in_ip:443";
-			exec_fruitywifi($exec);
+			exec_blackbulb($exec);
 		}
         sleep(1);
 	} else if ($mod_captive_block == "close") { // DEFAULT AND ONLY METHOD ENABLED
 		$exec = "iptables -t nat -A PREROUTING -p tcp -m mac --mac-source $mac -j MARK --set-mark 99";
-		exec_fruitywifi($exec);
+		exec_blackbulb($exec);
 		
 		$exec = "iptables -t nat -D PREROUTING -i $io_in_iface -p tcp -m mark ! --mark 99 -m tcp -m multiport --dports 80,443 -j DNAT --to-destination $io_in_ip";
-		exec_fruitywifi($exec);
+		exec_blackbulb($exec);
 		
 		$exec = "iptables -t nat -A PREROUTING -i $io_in_iface -p tcp -m mark ! --mark 99 -m tcp -m multiport --dports 80,443 -j DNAT --to-destination $io_in_ip";
-		exec_fruitywifi($exec);
+		exec_blackbulb($exec);
 		
         sleep(1);
     }
@@ -120,12 +120,12 @@ if( $ip != "" and $mac != "" ) {
 
     // STORE USER
     $exec = "$bin_echo '$user|$pass|$ip|$mac|".date("Y-m-d h:i:s")."' >> $file_users ";
-    exec_fruitywifi($exec);
+    exec_blackbulb($exec);
     
     // ADD TO LOGS
 	$exec = "$bin_echo '".date("Y-m-d h:i:s")."|$mac|$ip|".basename($_SERVER['PHP_SELF'])."|$user|$pass|[NEW]' >> $mod_logs ";
     //$exec = "$bin_echo 'NEW: $user|$pass|$ip|$mac|".date("Y-m-d h:i:s")."' >> $mod_logs ";
-    exec_fruitywifi($exec);
+    exec_blackbulb($exec);
 
 } else {
     echo "Access Denied"; 
